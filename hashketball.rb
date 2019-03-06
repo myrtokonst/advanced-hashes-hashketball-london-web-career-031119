@@ -172,3 +172,44 @@ def team_names
   return team_names_array
 end
 
+def player_numbers(teams_name)
+jerseys = []
+game_hash.each do |location, data|
+  name = data[:team_name]
+  data_used = data[:players]
+  if name == teams_name
+   data_used.each do |player, things|
+     jersey_nums = things[:number]
+     jerseys.push(jersey_nums)
+      end
+    end
+  end
+  return jerseys
+end
+
+def player_stats(players_name)
+  game_hash.each do |location, data|
+    data_used = data[:players]
+    data_used.each do |name, stats|
+      if name == players_name
+        return stats
+      end
+    end 
+  end 
+end
+
+def big_shoe_rebounds
+  max_shoe = 0
+  rebound = ""
+game_hash.each do |location, data|
+ data_used = data[:players]
+   data_used.collect do |player, things|
+     shoe_size = things[:shoe]
+      if shoe_size > max_shoe
+        shoe_size = max_shoe
+        rebound = things[:rebounds]
+   end 
+ end 
+ end 
+rebound
+end
