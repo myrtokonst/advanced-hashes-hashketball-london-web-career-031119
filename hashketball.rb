@@ -213,3 +213,24 @@ game_hash.each do |location, data|
  end 
 rebound
 end
+
+def most_points_scored
+ all_players = game_hash[:home][:players].merge(game_hash[:away][:players])
+ all_players.max_by {|player, things| things[:points]}[0]
+end
+
+def winning_team
+home_points = []
+away_points = []
+game_hash.each do |location, data|
+  if location == :home
+    data[:players].each  {|name, things| home_points.push(things[:points])}
+ else data[:players].each  {|name, things| away_points.push(things[:points])}
+ end 
+ end
+if  home_points.inject(0){|sum, i|  sum + i } > away_points.inject(0){|sum, i|  sum + i } 
+  return game_hash[:home][:team_name]
+else return game_hash[:away][:team_name]
+end
+end 
+
